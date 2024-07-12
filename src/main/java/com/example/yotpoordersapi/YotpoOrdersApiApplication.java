@@ -11,7 +11,8 @@ public class YotpoOrdersApiApplication {
 
 	@GetMapping("/welcome")
 	public String welcome() {
-		return "Welcome to Yotpo Orders API";
+		var message =  "Welcome to Yotpo!!";
+		return message;
 	}
 
 	public static void main(String[] args) {
