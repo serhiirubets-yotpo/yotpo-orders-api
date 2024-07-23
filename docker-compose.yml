@@ -1,28 +1,29 @@
-version: "3.8"
 services:
-  #User-Service
-  user-profile-service:
+  orders-api-service:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: yotpo-orders-api
+    container_name: serhii-orders-api
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_container:5432/postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/serhii-orders
       - SPRING_DATASOURCE_USERNAME=test
       - SPRING_DATASOURCE_PASSWORD=test
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     links:
       - db
+      - kafka
     ports:
       - '8080:8080'
     depends_on:
       - db
+      - kafka
   # Postgres
   db:
     image: postgres:15
-    container_name: yotpo-orders-postgres
+    container_name: serhii-orders-postgres
     restart: always
     environment:
-      - POSTGRES_DB=yotpo-orders
+      - POSTGRES_DB=serhii-orders
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
     ports:
@@ -43,11 +44,11 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - 29092:29092
+      - 9092:9092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

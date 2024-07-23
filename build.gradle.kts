@@ -19,21 +19,27 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.postgresql:postgresql")
-
-	compileOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	compileOnly("org.projectlombok:lombok:1.18.34")
 	annotationProcessor("org.projectlombok:lombok:1.18.34")
 
 	testCompileOnly("org.projectlombok:lombok:1.18.34")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.34")
 
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("org.apache.kafka:kafka-clients:3.7.1")
+
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.2")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2")
+
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+	compileOnly("org.springframework.boot:spring-boot-devtools")
+
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
 
 tasks.bootJar {
 	archiveFileName.set("service.jar")

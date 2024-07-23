@@ -1,1 +1,1 @@
-rootProject.name = "yotpo-orders-api"
+rootProject.name = "serhii-orders-api"
